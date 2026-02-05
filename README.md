@@ -22,11 +22,3 @@ RunePulse is a RuneLite plugin that sends **opt-in** telemetry (XP, gear snapsho
 ## Config
 This plugin uses a "Pair Now" button to register a token. No manual API key needed.
 
-## Backend URL
-Set the backend base URL inside `TelemetryUploader.java` before release:
-```
-private static final String BASE_URL = "https://runepulse-production.up.railway.app";
-```
-
-## Notes
-This repo is intended for Plugin Hub submission.
