@@ -191,23 +191,23 @@ public class TelemetryService
         }
 
         Map<String, GearItem> slots = new HashMap<>();
-        Map<String, EquipmentInventorySlot> slotMap = new HashMap<>();
-        slotMap.put("HEAD", EquipmentInventorySlot.HEAD);
-        slotMap.put("CAPE", EquipmentInventorySlot.CAPE);
-        slotMap.put("AMULET", EquipmentInventorySlot.AMULET);
-        slotMap.put("WEAPON", EquipmentInventorySlot.WEAPON);
-        slotMap.put("BODY", EquipmentInventorySlot.BODY);
-        slotMap.put("SHIELD", EquipmentInventorySlot.SHIELD);
-        slotMap.put("LEGS", EquipmentInventorySlot.LEGS);
-        slotMap.put("HANDS", EquipmentInventorySlot.GLOVES);
-        slotMap.put("FEET", EquipmentInventorySlot.BOOTS);
-        slotMap.put("RING", EquipmentInventorySlot.RING);
-        slotMap.put("AMMO", EquipmentInventorySlot.AMMO);
+        Map<String, Integer> slotMap = new HashMap<>();
+        slotMap.put("HEAD", EquipmentInventorySlot.HEAD.getSlotIdx());
+        slotMap.put("CAPE", EquipmentInventorySlot.CAPE.getSlotIdx());
+        slotMap.put("AMULET", EquipmentInventorySlot.AMULET.getSlotIdx());
+        slotMap.put("WEAPON", EquipmentInventorySlot.WEAPON.getSlotIdx());
+        slotMap.put("BODY", EquipmentInventorySlot.BODY.getSlotIdx());
+        slotMap.put("SHIELD", EquipmentInventorySlot.SHIELD.getSlotIdx());
+        slotMap.put("LEGS", EquipmentInventorySlot.LEGS.getSlotIdx());
+        slotMap.put("HANDS", EquipmentInventorySlot.GLOVES.getSlotIdx());
+        slotMap.put("FEET", EquipmentInventorySlot.BOOTS.getSlotIdx());
+        slotMap.put("RING", EquipmentInventorySlot.RING.getSlotIdx());
+        slotMap.put("AMMO", 10);
 
         Item[] items = equipment.getItems();
-        for (Map.Entry<String, EquipmentInventorySlot> entry : slotMap.entrySet())
+        for (Map.Entry<String, Integer> entry : slotMap.entrySet())
         {
-            int idx = entry.getValue().getSlotIdx();
+            int idx = entry.getValue();
             if (idx < 0 || idx >= items.length)
             {
                 continue;
@@ -237,8 +237,8 @@ public class TelemetryService
             return;
         }
 
-        if (event.getType() != ChatMessageType.GAMEMESSAGE
-            && event.getType() != ChatMessageType.SPAM)
+        String typeName = event.getType().name();
+        if (!"GAMEMESSAGE".equals(typeName) && !"SPAM".equals(typeName))
         {
             return;
         }
