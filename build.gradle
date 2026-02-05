@@ -5,8 +5,6 @@ plugins {
 group = 'com.runepulse'
 version = '0.1.0'
 
-githubRepo = 'runepulse'
-
 repositories {
   mavenCentral()
   maven {
