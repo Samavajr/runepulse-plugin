@@ -202,7 +202,7 @@ public class TelemetryService
         slotMap.put("HANDS", EquipmentInventorySlot.GLOVES.getSlotIdx());
         slotMap.put("FEET", EquipmentInventorySlot.BOOTS.getSlotIdx());
         slotMap.put("RING", EquipmentInventorySlot.RING.getSlotIdx());
-        slotMap.put("AMMO", 10);
+        slotMap.put("AMMO", 13);
 
         Item[] items = equipment.getItems();
         for (Map.Entry<String, Integer> entry : slotMap.entrySet())
