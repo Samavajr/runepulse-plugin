@@ -44,7 +44,7 @@ public interface TelemetryConfig extends Config
     )
     default boolean trackGear()
     {
-        return false;
+        return true;
     }
 
     @ConfigItem(

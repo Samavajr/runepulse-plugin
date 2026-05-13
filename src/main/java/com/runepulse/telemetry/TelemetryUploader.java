@@ -95,6 +95,12 @@ public class TelemetryUploader
         }
     }
 
+    public boolean hasToken()
+    {
+        String token = configManager.getConfiguration("runepulse", "apiToken");
+        return token != null && !token.isBlank();
+    }
+
     private String buildUrl(String path)
     {
         String trimmed = BASE_URL;

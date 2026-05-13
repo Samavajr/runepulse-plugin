@@ -77,10 +77,14 @@ public class TelemetryService
             return;
         }
 
+        if (!uploader.hasToken())
+        {
+            return;
+        }
+
         if (!baselineSent && config.trackXp())
         {
-            sendBaseline(client);
-            baselineSent = true;
+            baselineSent = sendBaseline(client);
         }
 
         if (Instant.now().isBefore(lastSend.plusSeconds(300)))
@@ -161,18 +165,21 @@ public class TelemetryService
         executor.submit(() -> uploader.sendVisibility(isPublic));
     }
 
-    private void sendBaseline(Client client)
+    private boolean sendBaseline(Client client)
     {
         String username = client.getLocalPlayer().getName();
         if (username == null || username.isBlank())
         {
-            return;
+            return false;
         }
 
         Map<String, Integer> skills = new HashMap<>();
+        buffer.clear();
         for (Skill skill : Skill.values())
         {
-            skills.put(skill.getName(), client.getSkillExperience(skill));
+            int xp = client.getSkillExperience(skill);
+            skills.put(skill.getName(), xp);
+            lastXp.put(skill, xp);
         }
 
         uploader.sendBaseline(new BaselineSnapshot(
@@ -180,6 +187,8 @@ public class TelemetryService
             Instant.now().getEpochSecond(),
             skills
         ));
+
+        return true;
     }
 
     private void sendGear(Client client, String username)
